@@ -1,0 +1,54 @@
+$cell-size: 150px;
+$player-size: 0.9 * $cell-size;
+$base-shift: (
+  $cell-size - $player-size) / 2;
+$col-count: 5;
+$row-count: 5;
+
+.game {
+  width: $col-count * $cell-size;
+  position: relative;
+  border: 2px solid #000;
+
+  &__field {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__cell {
+    box-sizing: border-box;
+    height: #{$cell-size};
+    width: #{$cell-size};
+    border: 1px dashed #000;
+  }
+
+  &__player {
+    position: absolute;
+    left: $base-shift;
+    top: $base-shift;
+    width: $player-size;
+    height: $player-size;
+    border-radius: 50%;
+    background-color: #000;
+
+    @for $index from 1 through $row-count {
+      &--row--#{$index} {
+        top: $base-shift + ($index - 1) * $cell-size;
+      }
+    }
+
+    @for $index from 1 through $col-count {
+      &--col--#{$index} {
+        left: $base-shift + ($index - 1) * $cell-size;
+      }
+    }
+
+    @each $color in red,
+    green,
+    blue {
+      &--color--#{$color} {
+        background-color: $color;
+      }
+    }
+  }
+}
